@@ -6,7 +6,7 @@ import { CreateCarDto } from './dto/create-car.dto';
 export class CarService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateCarDto) {
+  create(data: any) {
     return this.prisma.car.create({ data });
   }
 
