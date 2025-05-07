@@ -9,4 +9,4 @@ import { ScheduleModule } from '@nestjs/schedule';
   imports: [ScheduleModule.forRoot(), MailModule],
   providers: [SchedulerService, CarService],
 })
-export class AppModule {}
+export class SchedulerModule {}
