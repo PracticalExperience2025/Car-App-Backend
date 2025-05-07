@@ -7,5 +7,6 @@ export class CreateCarDto {
     insuranceDate: Date;
     inspectionDate: Date;
     images: string[];
+    owner: String;
   }
   
