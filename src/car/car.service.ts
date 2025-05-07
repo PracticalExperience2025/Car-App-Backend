@@ -18,7 +18,7 @@ export class CarService {
     return this.prisma.car.findUnique({ where: { id } });
   }
 
-  update(id: string, data: Partial<CreateCarDto>) {
+  update(id: string, data: any) {
     return this.prisma.car.update({ where: { id }, data });
   }
 
