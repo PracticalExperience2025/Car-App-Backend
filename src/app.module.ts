@@ -10,7 +10,7 @@ import { SchedulerModule } from './scheduler/scheduler.module';
 import { ImagesModule } from './images/images.module';
 
 @Module({
-  imports: [CarModule, PrismaModule, AuthModule, UserModule, MailModule, SchedulerModule, ImagesModule],
+  imports: [CarModule, PrismaModule, AuthModule, UserModule, MailModule, SchedulerModule, ImagesModule, ConfigModule.forRoot({ isGlobal: true })],
   controllers: [AppController],
   providers: [AppService],
 })
