@@ -7,9 +7,10 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MailModule } from './mailer/mailer.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
-  imports: [CarModule, PrismaModule, AuthModule, UserModule, MailModule, SchedulerModule],
+  imports: [CarModule, PrismaModule, AuthModule, UserModule, MailModule, SchedulerModule, ImagesModule],
   controllers: [AppController],
   providers: [AppService],
 })
