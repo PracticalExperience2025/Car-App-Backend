@@ -18,7 +18,7 @@ export class ImagesService {
       const uploadedImage = await cloudinary.uploader.upload(
         `data:${imageType};base64,${imageBuffer.toString('base64')}`,
         {
-          upload_preset: 'your_upload_preset',
+          upload_preset: 'my_preset',
         },
       );
       return uploadedImage.secure_url; // Returning the URL of the uploaded image
