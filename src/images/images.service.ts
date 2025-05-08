@@ -13,19 +13,14 @@ export class ImagesService {
     });
   }
 
-async uploadImage(imageBase64: string, imageType: string): Promise<string> {
+  async uploadImage(imageBuffer: Buffer, imageType: string): Promise<string> {
     try {
-      // Convert the base64 string to a buffer
-      const imageBuffer = Buffer.from(imageBase64, 'base64');
-
-      // Upload the buffer to Cloudinary
       const uploadedImage = await cloudinary.uploader.upload(
-        `data:${imageType};base64,${imageBase64}`,
+        `data:${imageType};base64,${imageBuffer.toString('base64')}`,
         {
-          upload_preset: 'my_preset',
+          upload_preset: 'your_upload_preset',
         },
       );
-      
       return uploadedImage.secure_url; // Returning the URL of the uploaded image
     } catch (error) {
       console.error('Error uploading image to Cloudinary:', error);
