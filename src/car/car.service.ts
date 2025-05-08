@@ -18,6 +18,12 @@ export class CarService {
     return this.prisma.car.findUnique({ where: { id } });
   }
 
+  findByUser(ownerId: string) {
+    return this.prisma.car.findMany({ where: {
+      ownerId
+    }})
+  }
+
   update(id: string, data: any) {
     return this.prisma.car.update({ where: { id }, data });
   }

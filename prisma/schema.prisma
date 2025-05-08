@@ -12,6 +12,7 @@ model Car {
   brand            String
   model            String
   license          String   @unique
+  VIN              String?  @unique
   vignetteDate     DateTime
   registrationDate DateTime
   insuranceDate    DateTime

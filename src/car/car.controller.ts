@@ -21,6 +21,11 @@ export class CarController {
     return this.carService.findOne(id);
   }
 
+  @Get('/user/:id')
+  findByYser(@Param('id') id: string) {
+    return this.carService.findByUser(id);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateCarDto: Partial<CreateCarDto>) {
     return this.carService.update(id, updateCarDto);
