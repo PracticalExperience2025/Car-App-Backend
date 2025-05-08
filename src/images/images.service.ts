@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
-import { ConfigService }  from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
+
 
 @Injectable()
 export class ImagesService {
@@ -11,36 +12,16 @@ export class ImagesService {
       api_secret: this.configService.get<string>('CLOUDINARY_API_SECRET'),
     });
   }
+
   async uploadImage(imageBuffer: Buffer, imageType: string): Promise<string> {
     try {
-      const uploadedImage = await cloudinary.uploader.upload_stream(
-        { upload_preset: 'my_preset' },
-        (error, result) => {
-          if (error) {
-            throw new Error(`Cloudinary upload error: ${error.message}`);
-          }
-          return result?.secure_url;
-        }
-      );
-
-      // Use a writable stream to upload the image directly
-      const stream = cloudinary.uploader.upload_stream(
-        { upload_preset: 'my_preset' },
-        (error, result) => {
-          if (error) {
-            throw new Error(`Cloudinary upload error: ${error.message}`);
-          }
-          return result?.secure_url;
+      const uploadedImage = await cloudinary.uploader.upload(
+        `data:${imageType};base64,${imageBuffer.toString('base64')}`,
+        {
+          upload_preset: 'my_preset',
         },
       );
-
-      // Write the image buffer to the Cloudinary stream
-      stream.end(imageBuffer);
-
-      return new Promise((resolve, reject) => {
-        stream.on('data', (data) => resolve(data));
-        stream.on('error', (err) => reject(err));
-      });
+      return uploadedImage.secure_url; // Returning the URL of the uploaded image
     } catch (error) {
       console.error('Error uploading image to Cloudinary:', error);
       throw new Error('Error uploading image to Cloudinary');
