@@ -10,6 +10,11 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
+
+  async findById(id: string) {
+    return this.prisma.user.findUnique({ where: { id } });
+  }
+
   async register(data: { email: string; password: string }) {
     const hashed = await bcrypt.hash(data.password, 10);
     return this.prisma.user.create({
@@ -19,4 +24,16 @@ export class UserService {
       },
     });
   }
+
+  async updatePassword(userId: string, newPassword: string): Promise<void> {
+    await this.prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        password: newPassword
+      }
+    });
+  }
+  
 }

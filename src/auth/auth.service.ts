@@ -25,4 +25,18 @@ export class AuthService {
       user,
     };
   }
+
+
+  async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<{ message: string }> {
+    const user = await this.userService.findById(userId);
+    if (!user) throw new UnauthorizedException('User not found');
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) throw new UnauthorizedException('Incorrect current password');
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.userService.updatePassword(userId, hashedPassword);
+
+    return { message: 'Password updated successfully' };
+  }
 }
